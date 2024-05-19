@@ -1,0 +1,268 @@
+@tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+  .outer-gridMovie{
+    background-color: var(--primary-dark-background);
+  }
+
+
+  .headerNav{
+    background-color: var(--secondary-dark-background);
+  }
+  .headText {
+    flex: 1; /* Take up remaining space */
+    background-color: var(--secondary-dark-background);
+    padding: 1px 20px;
+  }
+  .headText h2{
+    color: var(--text-color);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--text-color);
+    font-size: medium;
+  }
+  
+  .botonesNav {
+    display: flex;
+    background-color: var(--secondary-dark-background);
+    padding: 0px 10px;
+    padding-bottom: 25px;
+    margin-top: 10px;
+    
+  }
+  .botonesNav .left-buttons {
+    margin-right: auto;
+    margin: 0 10px;
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    background-color: var(--secondary-dark-background);
+    font-size:25px;
+  }
+  .botonesNav .left-buttons:hover{
+    color: var(--secondary-accent-color);
+  }
+  .botonesNav .right-buttons {
+    margin-left: auto;
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    background-color: var(--secondary-dark-background);
+    font-size:25px;
+  }
+  
+  .botonesNav .right-buttons:hover{
+    color: var(--secondary-accent-color);
+  }
+  
+  
+  .gridMovies{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-flow: row;
+    gap: 1px;
+    padding: 2%;
+  }
+  
+  .MovieCard{
+    padding: 10px;
+    margin: 10px;
+    width:auto;
+    height: auto;
+    background-color: var(--movie-card);
+    border-radius: 11px;
+    transition: box-shadow 0.3s ease;
+  }
+  .MovieCard:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+  }
+  
+  
+  
+  .movie-image{
+    width: 100%; 
+    height: 80%; 
+    border-radius: 10px;
+    margin-bottom: -10px;
+  }
+  
+  .MovieCard h4{
+    color: var(--text-color);
+    @apply text-left mt-4 text-lg pt-2;
+  }
+  
+  .outer-movieDesc{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start;     /* Center vertically */
+    
+    padding-top: 5%;
+    background-color: var(--primary-dark-background);
+  }
+  
+  .movieDesc-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4%;
+    width: 87%;
+    height: 60%;
+    background-color: var(--secondary-dark-background);
+    border-radius: 15px;
+  }
+  .left-list{
+    list-style-type:none;         
+    margin: 0;
+    padding-top: 5%;                      
+    padding-left: 10%; 
+  }
+  
+  .left-list li{
+    text-align: left;               
+    padding: 5px 0;
+  }
+  .left-list li h2{
+    color: var(--text-color);
+    font-size: 30px;
+  }
+  .left-list li h3{
+    font-size: 25px;
+    color: var(--text-color);
+  }
+
+  .image-desc{
+    @apply h-40 w-80 rounded-lg m-4 ml-auto mr-12;
+  }
+
+  .right-desc{
+    @apply flex flex-col;
+  }
+
+  .buscar-container{
+    @apply flex flex-col items-center w-auto h-32;
+  }
+
+  .input-buscar{
+    @apply text-white bg-cardBackground rounded-md w-2/4 h-full text-lg;
+  }
+
+  .carrito-main{
+    @apply flex flex-col min-h-3/4;
+  }
+
+  .carrito-content{
+    @apply flex-grow h-48 p-4 space-y-4;
+  }
+  .carrito-card{
+    @apply flex shadow-sm rounded-lg p-4;
+    background-color: var(--card-background);
+  }
+  .carrito-card-info{
+    @apply flex-1 text-left;
+  }
+  .carrito-card-right{
+    @apply flex flex-row items-end space-x-4;
+  }
+
+  .carrito-footer {
+    @apply mt-auto p-4 flex justify-between;
+  }
+  .footer-left{
+    @apply flex space-x-3;
+  }
+  .footer-right{
+    @apply flex;
+  }
+
+
+  @layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 222.2 84% 4.9%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 222.2 84% 4.9%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 222.2 84% 4.9%;
+
+      --primary: 222.2 47.4% 11.2%;
+      --primary-foreground: 210 40% 98%;
+
+      --secondary: 210 40% 96.1%;
+      --secondary-foreground: 222.2 47.4% 11.2%;
+
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+
+      --accent: 210 40% 96.1%;
+      --accent-foreground: 222.2 47.4% 11.2%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 222.2 84% 4.9%;
+
+      --radius: 0.5rem;
+      --primary-dark-background: #1E1E1E;
+      --secondary-dark-background: #2C2C2C;
+      --primary-accent-color: #FF6600;
+      --secondary-accent-color: #4CAF50;
+      --text-color: #FFFFFF;
+      --secondary-text-color: #B0B0B0;
+      --border-color: #3C3C3C;
+      --card-background: #2A2A2A;
+      --movie-card: #404040;
+    }
+
+    .dark {
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
+
+      --card: 222.2 84% 4.9%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222.2 84% 4.9%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 210 40% 98%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 17.5%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 17.5%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 17.5%;
+      --accent-foreground: 210 40% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 17.5%;
+      --input: 217.2 32.6% 17.5%;
+      --ring: 212.7 26.8% 83.9%;
+    }
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--primary-dark-background);
+  }
+  
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply  bg-background text-foreground;
+    }
+  }
