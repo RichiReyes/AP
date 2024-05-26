@@ -16,7 +16,7 @@ const Buscar = () => {
             <div className="buscar-container">
                 <div className="flex w-full items-center space-x-2 p-9 h-full">
                     <input className='input-buscar'></input>
-                    <Button variant="agregarFav" size="buscar" >Buscar</Button>
+                    <Button>Buscar</Button>
                 </div>
             </div>
             <GridMovies limpiarPantalla={limpiarPantalla}/>

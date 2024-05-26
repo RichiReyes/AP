@@ -153,7 +153,7 @@
   }
 
   .carrito-content{
-    @apply flex-grow h-48 p-4 space-y-4;
+    @apply flex-grow flex-col h-48 items-center space-y-4 px-10;
   }
   .carrito-card{
     @apply flex shadow-sm rounded-lg p-4;

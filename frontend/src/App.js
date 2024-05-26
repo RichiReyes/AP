@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
-import logo from './logo.svg';
+
 import './App.css';
 import './index.css';
 
@@ -8,6 +8,10 @@ import './index.css';
 import Home from './pages/Home';
 import Buscar from './pages/Buscar';
 import Carrito from './pages/Carrito';
+import VistosReciente from './pages/VistosReciente';
+import Perfil from './pages/Perfil';
+import AdminMenu from './pages/AdminMenu';
+import LogIn from './pages/LogIn';
 
 function App() {
   return (
@@ -18,8 +22,10 @@ function App() {
           <Route exact path='/' element={<Home/>}/>
           <Route exact path ='/buscar' element={<Buscar/>}/>
           <Route exact path ='/carrito' element={<Carrito/>}/>
-
-
+          <Route exact path='/recientes' element={<VistosReciente/>}/>
+          <Route exact path='/perfil' element={<Perfil/>}/>
+          <Route exact path='/adminMenu' element={<AdminMenu/>}/>
+          <Route exact path='/login' element={<LogIn/>}/>
         </Routes>
       </BrowserRouter>
     </div>

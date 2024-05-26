@@ -15,7 +15,10 @@ const MovieDesc = () => {
                 </div>
                 <div className="right-desc">
                     <img src={require("./imgs/interestelar.jpg")} alt="No se encontro esta imagen" className='image-desc' />
-                    <Button variant="agregarFav" size="agregarFav">Agregar a Favoritos</Button>
+                    <div className='flex flex-col items-end py-2 px-10'>
+                    <Button >Agregar a Favoritos</Button>
+                    </div>
+                    
                 </div>
             </div>    
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from './ui/button';
+import CarritoCard from './carritoCard';
 
 const Historial = ({limpiarPantalla, setCarrito}) => {
 
@@ -11,15 +12,11 @@ const Historial = ({limpiarPantalla, setCarrito}) => {
     return (
         <div className='carrito-main'>
             <div className='flex p-4'>
-            <Button onClick={handleVolver} variant="agregarFav">Volver</Button>
+            <Button onClick={handleVolver}>Volver</Button>
             </div>
             <div className="carrito-content">
                 <h2 className='text-white text-2xl mt-8'>Historial de Compras</h2>
-            </div>
-            <div className="carrito-footer">
-                <div className="footer-left">
-                    
-                </div>
+                <CarritoCard tipo={'historial'}/>
             </div>
         </div>
     );

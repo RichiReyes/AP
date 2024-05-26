@@ -23,16 +23,16 @@ const Carrito = () => {
             <Navbar/>
             {carrito && <div className="carrito-main">
                 <div className="carrito-content">
-                    <h2 className='text-white text-2xl mt-8'>Carrito</h2>
-                    <CarritoCard/>
+                    <h2 className='text-white text-3xl mt-8'>Carrito</h2>
+                    <CarritoCard tipo={'carrito'}/>
                 </div>
                 <div className="carrito-footer">
                     <div className="footer-left">
-                        <Button variant="agregarFav">Proceder al pago</Button>
-                        <Button variant="agregarFav">Borrar Carrito</Button>
+                        <Button >Proceder al pago</Button>
+                        <Button >Borrar Carrito</Button>
                     </div>
                     <div className="footer-right">
-                        <Button onClick={handleHistorial} variant="agregarFav">Historial de Compras</Button>
+                        <Button onClick={handleHistorial}>Historial de Compras</Button>
                     </div>
                 </div>
             </div>}

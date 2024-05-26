@@ -3,7 +3,7 @@ import MovieInfo from './movieInfo';
 
 const GridMovies = ({limpiarPantalla}) => {
     return (
-        <div class="outer-gridMovie">
+        <div className="outer-gridMovie">
             <div className='gridMovies'>
             <MovieInfo/>
             <MovieInfo/>
