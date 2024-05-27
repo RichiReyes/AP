@@ -41,7 +41,7 @@ const Navbar = () => {
                 <button onClick={handleCarrito}className='right-buttons'>Carrito</button>
                 <Avatar onClick={handlePerfil}>
                     <AvatarImage src="" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback></AvatarFallback>
                 </Avatar>
             </div>
             

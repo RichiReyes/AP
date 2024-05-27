@@ -6,8 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { createClient } from '@supabase/supabase-js';
 
-const supaURL = process.env.REACT_APP_SUPABASE_URL;
-const anonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
 const supabase = createClient("https://jheqfwbznxusdwclwccv.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoZXFmd2J6bnh1c2R3Y2x3Y2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0MzkzMDgsImV4cCI6MjAzMjAxNTMwOH0.gx_O2bwG3rqRX0Nlr2CkLLgAnCVzuyPnHUly9cWSdTY");
 

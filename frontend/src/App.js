@@ -12,6 +12,16 @@ import VistosReciente from './pages/VistosReciente';
 import Perfil from './pages/Perfil';
 import AdminMenu from './pages/AdminMenu';
 import LogIn from './pages/LogIn';
+import SingUp from './pages/SingUp';
+import AddStaff from './pages/AddStaff';
+import AddCategory from './pages/AddCategory';
+import AddNationality from './pages/AddNationality';
+import AddPlatform from './pages/AddPlatform';
+import AddMovie from './pages/AddMovie';
+import AddShow from './pages/AddShow';
+import AdmiCategory from './pages/AdmiCategory';
+import AdmiNacionality from './pages/AdmiNacionality';
+import AdmiPlatform from './pages/AdmiPlatform';
 
 function App() {
   return (
@@ -26,6 +36,16 @@ function App() {
           <Route exact path='/perfil' element={<Perfil/>}/>
           <Route exact path='/adminMenu' element={<AdminMenu/>}/>
           <Route exact path='/login' element={<LogIn/>}/>
+          <Route exact path='/singup' element={<SingUp/>}/>
+          <Route exact path='/addStaff' element={<AddStaff/>}/>
+          <Route exact path='/addCategory' element={<AddCategory/>}/>
+          <Route exact path='/addNationality' element={<AddNationality/>}/>
+          <Route exact path='/addPlatform' element={<AddPlatform/>}/>
+          <Route exact path='/addMovie' element={<AddMovie/>}/>
+          <Route exact path='/addShow' element={<AddShow/>}/>
+          <Route exact path='/admiCategory' element={<AdmiCategory/>}/>
+          <Route exact path='/admiNationality' element={<AdmiNacionality/>}/>
+          <Route exact path='/admiPlatform' element={<AdmiPlatform/>}/>
         </Routes>
       </BrowserRouter>
     </div>
