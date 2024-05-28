@@ -34,7 +34,7 @@ const AdminMenu = () => {
     }, [user, supabase]);
 
     if (!person) {
-        return <div>Loading...</div>;
+        return <div ><h2 className='text-white text-3xl'>Loading...</h2></div>;
     }
 
     if (!person.isadmin) {
@@ -68,6 +68,12 @@ const AdminMenu = () => {
     function goAdmiPlatform(){
         navigate('/admiPlatform');
     }
+    function goAdmiMovie(){
+        navigate('/admiMovie');
+    }
+    function goAdmiShow(){
+        navigate('/admiShow');
+    }
 
     return (
         <div>
@@ -94,11 +100,14 @@ const AdminMenu = () => {
                 <div onClick={goAddPlatform} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Agregar Plataforma
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goAdmiMovie} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Películas
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goAdmiShow} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Series
+                </div>
+                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                    Administrar Actores/Directores
                 </div>
                 <div onClick={goAdmiCategory} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Categorías

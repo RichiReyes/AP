@@ -22,6 +22,8 @@ import AddShow from './pages/AddShow';
 import AdmiCategory from './pages/AdmiCategory';
 import AdmiNacionality from './pages/AdmiNacionality';
 import AdmiPlatform from './pages/AdmiPlatform';
+import AdmiMovie from './pages/AdmiMovie';
+import AdmiShow from './pages/AdmiShow';
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
           <Route exact path='/admiCategory' element={<AdmiCategory/>}/>
           <Route exact path='/admiNationality' element={<AdmiNacionality/>}/>
           <Route exact path='/admiPlatform' element={<AdmiPlatform/>}/>
+          <Route exact path='/admiMovie' element={<AdmiMovie/>}/>
+          <Route exact path='/admiShow' element={<AdmiShow/>}/>
         </Routes>
       </BrowserRouter>
     </div>
