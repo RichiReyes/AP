@@ -2,7 +2,6 @@ import React from 'react';
 
 const MovieInfo = ({ movie, tipo }) => {
     const CDNURL = "https://jheqfwbznxusdwclwccv.supabase.co/storage/v1/object/public/imgs/";
-    console.log(CDNURL + 'movies/' + movie.id)
 
     if (tipo === 'movie') return (
         <div className='MovieCard'>

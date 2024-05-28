@@ -56,7 +56,7 @@ const AdmiAdmin = () => {
         <div>
             <Navbar />
             <div className='flex flex-col m-6 space-y-5'>
-                {people.filter(person => person.isAdmin && person.id !== logged.id).map((person) => (
+                {people.filter(person => person.isAdmin && person.id !== logged.person_id).map((person) => (
                     <div key={person.id} className='bg-neutral-700 rounded-md p-4 flex justify-between items-center'>
                         <h2 className='text-white text-base'>{person.name} {person.lastname}</h2>
                         <button

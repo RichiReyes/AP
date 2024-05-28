@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-import { Button } from "../components/ui/button"
-
+import { Button } from "../components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 const Perfil = () => {
-
   const [fechaLoad, setFechaload] = useState('listo para mostrar');
   const user = useUser();
   const supabase = useSupabaseClient();
   const [person, setPerson] = useState({
+    id: '',
     name: '',
     secondname: '',
     lastname: '',
@@ -29,6 +27,41 @@ const Perfil = () => {
   const [nationalities, setNationalities] = useState([]);
   const navigate = useNavigate();
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [cambioImagen, setCambioImagen] = useState(false);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      setSelectedImage(file);
+      setCambioImagen(true);
+    } else {
+      alert('Please select a JPEG or PNG image.');
+    }
+  };
+
+  const updateImage = async () => {
+    console.log("Person ID:", person.id);
+    console.log("Selected Image:", selectedImage);
+
+    if (!person.person_id || !selectedImage) {
+      alert('Please select an image and ensure user information is loaded.');
+      return;
+    }
+
+    try {
+      const { data: imageData, error: imageError } = await supabase
+        .storage
+        .from('imgs')
+        .upload(`users/${person.id}`, selectedImage, { upsert: true });
+
+      if (imageError) throw imageError;
+      alert('Profile picture updated successfully');
+      setCambioImagen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (fechaLoad === 'listo para mostrar') {
@@ -48,9 +81,9 @@ const Perfil = () => {
       if (user) {
         try {
           const { data } = await supabase.rpc('get_person_by_user_id', { p_user_id: user.id });
-
           if (data && data.length > 0) {
             setPerson(data[0]);
+            console.log(data[0]);
             setCambiousuario(null);
           }
         } catch (error) {
@@ -58,8 +91,7 @@ const Perfil = () => {
         }
       }
     };
-
-    fetchData(); // Call the async function
+    fetchData();
   }, [user, supabase, cambioUsuario]);
 
   useEffect(() => {
@@ -72,8 +104,7 @@ const Perfil = () => {
         console.error('Error fetching nationalities:', error.message);
       }
     };
-
-    fetchNationalities(); // Fetch nationalities
+    fetchNationalities();
   }, [supabase]);
 
   const menuAdmin = () => {
@@ -91,7 +122,6 @@ const Perfil = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
     if (name === 'phonenumber' || name === 'idnumber') {
       const numericValue = value.replace(/\D/, '');
       setPerson((prevPerson) => ({
@@ -100,14 +130,12 @@ const Perfil = () => {
       }));
       setCambios('cambio');
     } else {
-      
       setPerson((prevPerson) => ({
         ...prevPerson,
         [name]: value,
       }));
       setCambios('cambio');
     }
-    
   };
 
   const handleDateChange = (date) => {
@@ -119,6 +147,7 @@ const Perfil = () => {
     }));
     setCambios('cambio');
   };
+
   const handleNationalityChange = (e) => {
     const { value } = e.target;
     setPerson(prevPerson => ({
@@ -129,11 +158,9 @@ const Perfil = () => {
   };
 
   const handleCambio = async () => {
-    
-    try{
-      
-      const {data, error} = await supabase.rpc('update_person', {
-        p_id: person.person_id,
+    try {
+      const { data, error } = await supabase.rpc('update_person', {
+        p_id: person.id,
         p_name: person.name,
         p_secondname: person.secondname,
         p_lastname: person.lastname,
@@ -143,20 +170,20 @@ const Perfil = () => {
         p_nationality: person.nationality,
         p_phonenumber: person.phonenumber,
         p_community: person.community
-      })
-      if(data){
-        
+      });
+
+      if (data) {
         window.setTimeout(() => {
-          alert("Cambios realizados con exito");
+          alert("Cambios realizados con éxito");
           setCambios(null);
           setCambiousuario('cargar');
         }, 100);
       }
-      if (error){
+      if (error) {
         console.log(error);
-      }      
-    } catch{
-
+      }
+    } catch {
+      console.log("Error updating person");
     }
   }
 
@@ -266,19 +293,19 @@ const Perfil = () => {
               <h2 className='text-white text-lg'>Nacionalidad</h2>
               <div className="w-auto">
                 <div className="mt-1 relative">
-                <select
-                id="combo-box"
-                name="combo-box"
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white shadow-sm"
-                value={person.nationality}
-                onChange={handleNationalityChange}
-                >
-                  {nationalities.map(nationality => (
-                    <option key={nationality.id} value={nationality.id}> {/* Set value to nationality.id */}
-                      {nationality.name}
-                    </option>
-                  ))}
-                </select>
+                  <select
+                    id="combo-box"
+                    name="combo-box"
+                    className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white shadow-sm"
+                    value={person.nationality}
+                    onChange={handleNationalityChange}
+                  >
+                    {nationalities.map(nationality => (
+                      <option key={nationality.id} value={nationality.id}> {/* Set value to nationality.id */}
+                        {nationality.name}
+                      </option>
+                    ))}
+                  </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                       <path fillRule="evenodd" d="M10 3a1 1 0 01.7.3l5 5a1 1 0 01-1.4 1.4L10 5.4l-4.3 4.3a1 1 0 01-1.4-1.4l5-5A1 1 0 0110 3z" clipRule="evenodd" />
@@ -287,14 +314,21 @@ const Perfil = () => {
                 </div>
               </div>
             </div>
-            <div className="file-chooser-container px-2 py-3 bg-white shadow-lg rounded-lg h-16">
+            <h2 className='text-white text-lg'>Foto de Perfil</h2>
+            <div className="file-chooser-container px-2 py-2 shadow-lg rounded-lg h-16">
               <label htmlFor="file-upload" className="file-chooser-label flex items-center justify-center cursor-pointer bg-white text-black py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50">
                 <svg className="w-6 h-6 mr-2 text-black" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M12 2a5 5 0 0 1 5 5v1h1.5A2.5 2.5 0 0 1 21 10.5V18a2 2 0 0 1-2 2h-5v-5H10v5H5a2 2 0 0 1-2-2v-7.5A2.5 2.5 0 0 1 5.5 9H7V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v1h6V7a3 3 0 0 0-3-3z" />
                 </svg>
                 <span>Choose a picture</span>
-                <input id="file-upload" type="file" className="hidden" accept="image/*" />
+                <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
               </label>
+              {cambioImagen && <button
+                onClick={updateImage}
+                className="mt-10 px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+              >
+                Cambiar Imagen
+              </button>}
             </div>
           </div>
         </div>
@@ -306,6 +340,8 @@ const Perfil = () => {
       </div>
     );
   }
+
+  return null; // Return null while loading
 }
 
 export default Perfil;
