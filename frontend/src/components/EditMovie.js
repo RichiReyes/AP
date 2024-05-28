@@ -25,6 +25,7 @@ const EditMovie = ({ id, volver }) => {
     const [cambiosNormales, setCambiosnormales] = useState(false);
     const [cambioPrecio, setCambioPrecio] = useState(false);
     const [active, setActive] = useState(null);
+    const [cambioImagen, setCambioImagen] = useState(false);
 
     const currentYear = new Date().getFullYear();
     const years = Array.from(new Array(currentYear - 1899), (val, index) => currentYear - index);
@@ -169,10 +170,26 @@ const EditMovie = ({ id, volver }) => {
         const file = e.target.files[0];
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
             setSelectedImage(file);
+            setCambioImagen(true);
         } else {
             alert('Please select a JPEG or PNG image.');
         }
     };
+
+    const updateImage = async () => {
+        try{
+            const {data: imageData, error: imageError} = await supabase
+            .storage
+            .from('imgs')
+            .update('movies/'+id, selectedImage);
+            if(imageError) throw(imageError);
+            alert('Cambio exitoso');
+
+            setCambioImagen(false);
+        } catch (error){
+            console.log(error)
+        }
+    }
 
     const handleCambiosNormales = async () => {
         try {
@@ -516,6 +533,12 @@ const EditMovie = ({ id, volver }) => {
                                 className="px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
                             >
                                 Editar Precio
+                            </button>}
+                            {cambioImagen && <button
+                                onClick={updateImage}
+                                className="px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                            >
+                                Cambiar Imagen
                             </button>}
                         </div>
                     </div>

@@ -296,7 +296,7 @@ const AddStaff = () => {
                             onClick={handleAddStaff}
                             className="px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
                         >
-                            Add Staff Member
+                            Agregar Actor/Director
                         </button>
                     </div>
                 </div>

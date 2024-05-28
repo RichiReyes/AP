@@ -40,7 +40,7 @@ const EditCategory = ({ idEditar, volver }) => {
 
     return (
         <div className='m-6 self-center bg-neutral-700 flex flex-col space-y-2 p-4 rounded-lg'>
-            <label className='text-white mb-2' htmlFor='categoryName'>Update Category Name</label>
+            <label className='text-white mb-2' htmlFor='categoryName'>Actualizar categoría</label>
             <input
                 type='text'
                 id='categoryName'

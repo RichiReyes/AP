@@ -24,11 +24,101 @@ const EditShow = ({ id, volver }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [cambiosNormales, setCambiosnormales] = useState(false);
     const [cambioPrecio, setCambioPrecio] = useState(false);
+    const [cambioImagen, setCambioImagen] = useState(false);
 
-    const [seasons, setSeasons] = useState([]); 
+    const [seasons, setSeasons] = useState([]);
+    const [selectedSeason, setSelectedSeason] = useState(null);
+    const [episodes, setEpisodes] = useState([]);
+    const [newSeasonNumber, setNewSeasonNumber] = useState('');
+    const [newEpisode, setNewEpisode] = useState({ name: '', sinopsis: '', duration: '' });
 
     const currentYear = new Date().getFullYear();
     const years = Array.from(new Array(currentYear - 1899), (val, index) => currentYear - index);
+
+    const fetchSeasons = async () => {
+        const { data: seasonsData, error: seasonsError } = await supabase
+            .from('season')
+            .select('*')
+            .eq('idtvshow', id);
+        if (seasonsError) throw seasonsError;
+        setSeasons(seasonsData);
+    };
+    
+    const fetchEpisodes = async (seasonId) => {
+        const { data: episodesData, error: episodesError } = await supabase
+            .from('episode')
+            .select('*')
+            .eq('idseason', seasonId);
+        if (episodesError) throw episodesError;
+        setEpisodes(episodesData);
+    };
+    
+    const handleAddSeason = async () => {
+        if(!newSeasonNumber){
+            alert('Digite un numero de temporada')
+            return;
+        }
+
+        const { data, error } = await supabase
+            .from('season')
+            .insert([{ idtvshow: id, numberofseason: newSeasonNumber }])
+            .select();
+        if (error) throw error;
+        setNewSeasonNumber('');
+        fetchSeasons();
+    };
+    
+    const handleDeleteSeason = async (seasonId) => {
+        try{
+            const { error } = await supabase
+            .from('season')
+            .delete()
+            .eq('id', seasonId);
+            if (error) throw error;
+            fetchSeasons();
+        } catch(error){
+            console.log(error);
+            alert('Error borrando temporada')
+        }
+    };
+    
+    const handleAddEpisode = async () => {
+
+        if(!newEpisode.duration || !newEpisode.name || !newEpisode.sinopsis){
+            alert('Digite la información del episodio');
+            return;
+        }
+
+        const { data, error } = await supabase
+            .from('episode')
+            .insert([{ ...newEpisode, idseason: selectedSeason }])
+            .select();
+        if (error) throw error;
+        setNewEpisode({ name: '', sinopsis: '', duration: '' });
+        fetchEpisodes(selectedSeason);
+    };
+    
+    const handleDeleteEpisode = async (episodeId) => {
+        try{
+            const { error } = await supabase
+            .from('episode')
+            .delete()
+            .eq('id', episodeId);
+            if (error) throw error;
+            fetchEpisodes(selectedSeason);
+        } catch(error){
+            console.log(error);
+            alert('Error borrando episodio')
+        }
+    };
+    
+    useEffect(() => {
+        if (id) fetchSeasons();
+    }, [id]);
+    
+    useEffect(() => {
+        if (selectedSeason) fetchEpisodes(selectedSeason);
+    }, [selectedSeason]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -170,10 +260,26 @@ const EditShow = ({ id, volver }) => {
         const file = e.target.files[0];
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
             setSelectedImage(file);
+            setCambioImagen(true);
         } else {
             alert('Please select a JPEG or PNG image.');
         }
     };
+
+    const updateImage = async () => {
+        try{
+            const {data: imageData, error: imageError} = await supabase
+            .storage
+            .from('imgs')
+            .update('shows/'+id, selectedImage);
+
+            if(imageError) throw(imageError);
+            alert('Cambio exitoso.')
+            setCambioImagen(false);
+        } catch(error){
+            console.log(error);
+        }
+    }
 
     const handleCambiosNormales = async () => {
         try {
@@ -500,14 +606,93 @@ const EditShow = ({ id, volver }) => {
                             >
                                 Editar Precio
                             </button>}
+                            {cambioImagen && <button
+                                onClick={updateImage}
+                                className="px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                            >
+                                Cambiar Imagen
+                            </button>}
                         </div>
                     </div>
                 </div>
             </div>
             <div className="w3/4 flex flex-col items-center justify-center min-h-screen bg-[#1E1E1E]">
-               <div className='bg-[#2A2A2A] p-8 rounded-lg shadow-lg max-w-md'>
-                <h1>Temporadas</h1>
-               </div>
+            <div className='bg-[#2A2A2A] p-8 rounded-lg shadow-lg max-w-md'>
+                <h1 className="text-3xl font-bold text-[#FFFFFF] text-center mb-8">Temporadas</h1>
+                <div>
+                    <label className="block text-[#B0B0B0] mb-2" htmlFor="newSeason">Nueva Temporada</label>
+                    <input
+                        type="number"
+                        id="newSeason"
+                        value={newSeasonNumber}
+                        onChange={(e) => setNewSeasonNumber(e.target.value)}
+                        className="w-full px-4 py-2 bg-[#2C2C2C] text-[#FFFFFF] border border-[#3C3C3C] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                    />
+                    <button onClick={handleAddSeason} className="mt-4 px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]">
+                        Añadir Temporada
+                    </button>
+                </div>
+                <div className="mt-8">
+                    {seasons.map((season) => (
+                        <div key={season.id} className="flex justify-between items-center mb-2">
+                            <div
+                                onClick={() => setSelectedSeason(season.id)}
+                                className={`px-4 py-2 cursor-pointer rounded-lg ${selectedSeason === season.id ? 'bg-[#FF6600]' : 'bg-[#2C2C2C]'} text-[#FFFFFF]`}
+                            >
+                                Temporada {season.numberofseason}
+                            </div>
+                            <button onClick={() => handleDeleteSeason(season.id)} className="ml-4 px-4 py-2 bg-red-600 text-[#FFFFFF] rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-600">
+                                Eliminar
+                            </button>
+                        </div>
+                    ))}
+                </div>
+                {selectedSeason && (
+                    <div className="mt-8">
+                        <h2 className="text-2xl font-bold text-[#FFFFFF] text-center mb-4">Episodios</h2>
+                        <div>
+                            {episodes.map((episode) => (
+                                <div key={episode.id} className="flex justify-between items-center mb-2">
+                                    <div className="px-4 py-2 bg-[#2C2C2C] text-[#FFFFFF] rounded-lg">
+                                        {episode.name}
+                                    </div>
+                                    <button onClick={() => handleDeleteEpisode(episode.id)} className="ml-4 px-4 py-2 bg-red-600 text-[#FFFFFF] rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-600">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-8">
+                            <label className="block text-[#B0B0B0] mb-2" htmlFor="newEpisodeName">Nombre del Episodio</label>
+                            <input
+                                type="text"
+                                id="newEpisodeName"
+                                value={newEpisode.name}
+                                onChange={(e) => setNewEpisode({ ...newEpisode, name: e.target.value })}
+                                className="w-full px-4 py-2 bg-[#2C2C2C] text-[#FFFFFF] border border-[#3C3C3C] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                            />
+                            <label className="block text-[#B0B0B0] mb-2" htmlFor="newEpisodeSinopsis">Sinopsis del Episodio</label>
+                            <textarea
+                                id="newEpisodeSinopsis"
+                                value={newEpisode.sinopsis}
+                                onChange={(e) => setNewEpisode({ ...newEpisode, sinopsis: e.target.value })}
+                                className="w-full px-4 py-2 bg-[#2C2C2C] text-[#FFFFFF] border border-[#3C3C3C] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                            />
+                            <label className="block text-[#B0B0B0] mb-2" htmlFor="newEpisodeDuration">Duración del Episodio (min)</label>
+                            <input
+                                type="number"
+                                id="newEpisodeDuration"
+                                value={newEpisode.duration}
+                                onChange={(e) => setNewEpisode({ ...newEpisode, duration: e.target.value })}
+                                className="w-full px-4 py-2 bg-[#2C2C2C] text-[#FFFFFF] border border-[#3C3C3C] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+                            />
+                            <button onClick={handleAddEpisode} className="mt-4 px-6 py-2 bg-[#FF6600] text-[#FFFFFF] rounded-lg hover:bg-[#FF4500] focus:outline-none focus:ring-2 focus:ring-[#FF6600]">
+                                Añadir Episodio
+                            </button>
+                        </div>
+                    </div>
+                )}
+                </div>
             </div>
         </div>
     );

@@ -24,6 +24,9 @@ import AdmiNacionality from './pages/AdmiNacionality';
 import AdmiPlatform from './pages/AdmiPlatform';
 import AdmiMovie from './pages/AdmiMovie';
 import AdmiShow from './pages/AdmiShow';
+import AdmiActorDirector from './pages/AdmiActorDirector';
+import AddAdmin from './pages/AddAdmin';
+import AdmiAdmin from './pages/AdmiAdmin';
 
 function App() {
   return (
@@ -50,6 +53,9 @@ function App() {
           <Route exact path='/admiPlatform' element={<AdmiPlatform/>}/>
           <Route exact path='/admiMovie' element={<AdmiMovie/>}/>
           <Route exact path='/admiShow' element={<AdmiShow/>}/>
+          <Route exact path='/admiActorsDirectors' element={<AdmiActorDirector/>}/>
+          <Route exact path='/addAdmin' element={<AddAdmin/>}/>
+          <Route exact path='/admiAdmin' element={<AdmiAdmin/>}/>
         </Routes>
       </BrowserRouter>
     </div>

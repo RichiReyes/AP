@@ -74,6 +74,15 @@ const AdminMenu = () => {
     function goAdmiShow(){
         navigate('/admiShow');
     }
+    function goAdmiActorsDirectors(){
+        navigate('/admiActorsDirectors');
+    }
+    function goAddAdmin(){
+        navigate('/addAdmin');
+    }
+    function goAdmiAdmin(){
+        navigate('/admiAdmin');
+    }
 
     return (
         <div>
@@ -88,7 +97,7 @@ const AdminMenu = () => {
                 <div onClick={goAddStaff} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Agregar Actor/Director
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goAddAdmin} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Agregar Administrador
                 </div>
                 <div onClick={goAddCategory} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
@@ -106,13 +115,13 @@ const AdminMenu = () => {
                 <div onClick={goAdmiShow} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Series
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goAdmiActorsDirectors} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Actores/Directores
                 </div>
                 <div onClick={goAdmiCategory} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Categorías
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goAdmiAdmin} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Administrar Usuarios Administradores
                 </div>
                 <div onClick={goAdmiNationality} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
