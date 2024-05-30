@@ -317,7 +317,7 @@ const Perfil = () => {
                 <svg className="w-6 h-6 mr-2 text-black" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M12 2a5 5 0 0 1 5 5v1h1.5A2.5 2.5 0 0 1 21 10.5V18a2 2 0 0 1-2 2h-5v-5H10v5H5a2 2 0 0 1-2-2v-7.5A2.5 2.5 0 0 1 5.5 9H7V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v1h6V7a3 3 0 0 0-3-3z" />
                 </svg>
-                <span>Choose a picture</span>
+                <span>Escoger imagen</span>
                 <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
               </label>
               {cambioImagen && <button

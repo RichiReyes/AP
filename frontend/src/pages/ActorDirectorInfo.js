@@ -57,12 +57,12 @@ const ActorDirectorInfo = () => {
             <Navbar />
             <div className="container mx-auto bg-white text-black rounded-lg shadow-md p-6 mt-6">
                 <h2 className="text-4xl font-bold mb-4">{info.name} {info.secondname} {info.lastname} {info.secondlastname}</h2>
-                <p className="text-lg mb-2"><strong>Birthdate:</strong> {new Date(info.birthdate).toLocaleDateString()}</p>
-                <p className="text-lg mb-2"><strong>Nationality:</strong> {nationality}</p>
-                <p className="text-lg mb-2"><strong>Birthplace:</strong> {info.birthplace}</p>
-                <p className="text-lg mb-2"><strong>Height:</strong> {info.height} cm</p>
-                <p className="text-lg mb-4"><strong>Biography:</strong> {info.biography}</p>
-                <h3 className="text-2xl font-semibold mb-2">Family Members:</h3>
+                <p className="text-lg mb-2"><strong>Fecha de nacimiento:</strong> {new Date(info.birthdate).toLocaleDateString()}</p>
+                <p className="text-lg mb-2"><strong>Nacionalidad:</strong> {nationality}</p>
+                <p className="text-lg mb-2"><strong>Lugar de nacimiento:</strong> {info.birthplace}</p>
+                <p className="text-lg mb-2"><strong>Estatura:</strong> {info.height} cm</p>
+                <p className="text-lg mb-4"><strong>Biografía:</strong> {info.biography}</p>
+                <h3 className="text-2xl font-semibold mb-2">Familiares:</h3>
                 <ul className="list-disc list-inside mb-4">
                     {familyMembers.map((member, index) => (
                         <li key={index}>{member.name} - {member.type}</li>
