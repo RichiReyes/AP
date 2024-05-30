@@ -101,6 +101,18 @@ const StatisticsProducts = () => {
             },
         ],
     };
+
+    return (
+        <div className="min-h-screen bg-gray-900 text-white">
+            <Navbar />
+            <div className="max-w-4xl mx-auto p-6">
+                <h2 className="text-3xl mt-8">Estadísticas por categoría</h2>
+                <div className="mt-6">
+                    <Pie data={data} />
+                </div>
+            </div>
+        </div>
+    );
     
 };
 
