@@ -29,6 +29,9 @@ import AddAdmin from './pages/AddAdmin';
 import AdmiAdmin from './pages/AdmiAdmin';
 import MovieDesc from './components/movieDesc';
 import Favoritos from './pages/Favoritos';
+import TopItems from './pages/TopItems';
+import StatisticsProducts from './pages/StatisticsProducts';
+import StatsAges from './pages/StatsAges';
 
 function App() {
   return (
@@ -60,6 +63,9 @@ function App() {
           <Route exact path='/admiAdmin' element={<AdmiAdmin/>}/>
           <Route exact path='/movieDesc' element={<MovieDesc/>}/>
           <Route exact path='/favoritos' element={<Favoritos/>}/>
+          <Route exact path='/topVentas' element={<TopItems/>}/>
+          <Route exact path='/statsProductos' element={<StatisticsProducts/>}/>
+          <Route exact path='/statsUsuarios' element={<StatsAges/>}/>
         </Routes>
       </BrowserRouter>
     </div>
