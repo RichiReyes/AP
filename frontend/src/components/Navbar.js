@@ -11,6 +11,11 @@ const Navbar = () => {
     const [src, setSrc] = useState("");
     const [fallback, setFallback] = useState("");
     const [person, setPerson] = useState(null);
+    let imageurl;
+
+    if(user){
+        imageurl = (CDNURL+'users/'+user.id) + `?timestamp=${new Date().getTime()}`;
+    }
 
     useEffect(()=>{
 
@@ -67,7 +72,7 @@ const Navbar = () => {
             <div className='flex ml-auto space-x-4'>
                 <button onClick={handleCarrito}className='right-buttons'>Carrito</button>
                 <Avatar onClick={handlePerfil} className='hover:cursor-pointer'>
-                    <AvatarImage src={src} />
+                    <AvatarImage src={imageurl} />
                     <AvatarFallback>{fallback}</AvatarFallback>
                 </Avatar>
             </div>

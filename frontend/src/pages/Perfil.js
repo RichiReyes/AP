@@ -51,7 +51,7 @@ const Perfil = () => {
       const { data: imageData, error: imageError } = await supabase
         .storage
         .from('imgs')
-        .upload(`users/${person.id}`, selectedImage, { upsert: true });
+        .upload(`users/${user.id}`, selectedImage, { upsert: true });
 
       if (imageError) throw imageError;
       alert('Profile picture updated successfully');
