@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { Pie } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const ageRanges = [
     { range: '0-17', min: 0, max: 17 },
@@ -37,7 +39,6 @@ const calculateAge = (birthdate) => {
     }
     return age;
 };
-
 
 const StatsAges = () => {
     const [ageStats, setAgeStats] = useState({});
@@ -94,18 +95,39 @@ const StatsAges = () => {
         return <div>You do not have access to this page.</div>;
     }
 
+    const data = {
+        labels: Object.keys(ageStats),
+        datasets: [
+            {
+                label: 'Users by Age Range',
+                data: Object.values(ageStats),
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#FF9F40',
+                    '#FFCD56',
+                    '#4BC0C0',
+                ],
+                hoverBackgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#FF9F40',
+                    '#FFCD56',
+                    '#4BC0C0',
+                ],
+            },
+        ],
+    };
+
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             <Navbar />
             <div className="max-w-4xl mx-auto p-6">
-                <h2 className="text-3xl mt-8">Stadísticas de usuarios por edad</h2>
+                <h2 className="text-3xl mt-8">Estadísticas de usuarios por edad</h2>
                 <div className="mt-6">
-                    {Object.entries(ageStats).map(([range, count]) => (
-                        <div key={range} className="p-4 bg-gray-800 rounded-lg mb-4 flex justify-between items-center">
-                            <h3 className="text-lg">{range} años</h3>
-                            <p className="text-lg">{count} usuarios</p>
-                        </div>
-                    ))}
+                    <Pie data={data} />
                 </div>
             </div>
         </div>
