@@ -102,20 +102,16 @@ const StatsAges = () => {
                 label: 'Users by Age Range',
                 data: Object.values(ageStats),
                 backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#FF9F40',
-                    '#FFCD56',
-                    '#4BC0C0',
+                    '#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0',
+                    '#9966FF', '#FF9F80', '#FFCD56', '#8DFF57', '#575EFF',
+                    '#FF5757', '#57FFA5', '#FFA857', '#D957FF', '#57E8FF',
+                    '#FF57E8', '#9EFF57', '#FF8D57', '#5757FF', '#A857FF'
                 ],
                 hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#FF9F40',
-                    '#FFCD56',
-                    '#4BC0C0',
+                    '#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0',
+                    '#9966FF', '#FF9F80', '#FFCD56', '#8DFF57', '#575EFF',
+                    '#FF5757', '#57FFA5', '#FFA857', '#D957FF', '#57E8FF',
+                    '#FF57E8', '#9EFF57', '#FF8D57', '#5757FF', '#A857FF'
                 ],
             },
         ],
