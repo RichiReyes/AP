@@ -41,8 +41,6 @@ const Perfil = () => {
   };
 
   const updateImage = async () => {
-    console.log("Person ID:", person.id);
-    console.log("Selected Image:", selectedImage);
 
     if (!person.person_id || !selectedImage) {
       alert('Please select an image and ensure user information is loaded.');
@@ -83,7 +81,6 @@ const Perfil = () => {
           const { data } = await supabase.rpc('get_person_by_user_id', { p_user_id: user.id });
           if (data && data.length > 0) {
             setPerson(data[0]);
-            console.log(data[0]);
             setCambiousuario(null);
           }
         } catch (error) {

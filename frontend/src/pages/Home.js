@@ -19,7 +19,6 @@ const Home = () => {
                     .order('title', {ascending: true});
                 if (movieError) throw(movieError);
                 setMovies(movieData);
-                console.log(movieData);
 
                 const {data: showData, error: showError} = await supabase
                     .from('show')
@@ -27,7 +26,6 @@ const Home = () => {
                     .order('name', {ascending: true});
                 if (showError) throw(showError);
                 setShows(showData);
-                console.log(showData);
 
             } catch(error) {
                 console.log(error);

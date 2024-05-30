@@ -108,7 +108,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 4%;
     width: 87%;
-    height: 60%;
+    height: auto;
     background-color: var(--secondary-dark-background);
     border-radius: 15px;
   }
@@ -133,7 +133,7 @@
   }
 
   .image-desc{
-    @apply h-40 w-80 rounded-lg m-4 ml-auto mr-12;
+    @apply  w-80 rounded-lg m-4 ml-auto mr-12;
   }
 
   .right-desc{
@@ -208,7 +208,7 @@
       --ring: 222.2 84% 4.9%;
 
       --radius: 0.5rem;
-      --primary-dark-background: #1E1E1E;
+      --primary-dark-background: hsl(0, 0%, 12%);
       --secondary-dark-background: #2C2C2C;
       --primary-accent-color: #FF6600;
       --secondary-accent-color: #4CAF50;
