@@ -87,40 +87,21 @@ const StatisticsProducts = () => {
                 label: 'Products by Category',
                 data: categoryStats.map(stat => stat.count),
                 backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#FF9F40',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F80',
-                    '#FFCD56',
+                    '#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0',
+                    '#9966FF', '#FF9F80', '#FFCD56', '#8DFF57', '#575EFF',
+                    '#FF5757', '#57FFA5', '#FFA857', '#D957FF', '#57E8FF',
+                    '#FF57E8', '#9EFF57', '#FF8D57', '#5757FF', '#A857FF'
                 ],
                 hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#FF9F40',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F80',
-                    '#FFCD56',
+                    '#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0',
+                    '#9966FF', '#FF9F80', '#FFCD56', '#8DFF57', '#575EFF',
+                    '#FF5757', '#57FFA5', '#FFA857', '#D957FF', '#57E8FF',
+                    '#FF57E8', '#9EFF57', '#FF8D57', '#5757FF', '#A857FF'
                 ],
             },
         ],
     };
-
-    return (
-        <div className="min-h-screen bg-gray-900 text-white">
-            <Navbar />
-            <div className="max-w-4xl mx-auto p-6">
-                <h2 className="text-3xl mt-8">Category Statistics</h2>
-                <div className="mt-6">
-                    <Pie data={data} />
-                </div>
-            </div>
-        </div>
-    );
+    
 };
 
 export default StatisticsProducts;
