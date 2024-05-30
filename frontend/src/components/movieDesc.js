@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import Navbar from './Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import AddReview from '../components/AddReview'; // Ensure this import is correct
+import AddReview from '../components/AddReview'; 
 
 const MovieDesc = () => {
     const location = useLocation();
@@ -31,7 +31,7 @@ const MovieDesc = () => {
         const fetchData = async () => {
             if (movie) {
                 try {
-                    // Fetch categories
+                    
                     const { data: categoryData, error: categoryError } = await supabase
                         .from(tipo === 'movie' ? 'moviexcategory' : 'showxcategory')
                         .select('idcategory')
@@ -46,7 +46,7 @@ const MovieDesc = () => {
                     if (categoriesError) throw categoriesError;
                     setCategories(categoriesData);
 
-                    // Fetch actor and director IDs
+                    
                     const { data: actorDirectorData, error: actorDirectorError } = await supabase
                         .from(tipo === 'movie' ? 'moviexactordirector' : 'showxactordirector')
                         .select('idactordirector, type')
