@@ -174,7 +174,7 @@ const MovieDesc = () => {
                                 idmovie: movie.id
                             });
                         if (recentError) throw recentError;
-                        console.log(recentData);
+                        
 
                     } else if (tipo === 'show') {
                         const { data: existingData, error: existingError } = await supabase
@@ -220,8 +220,9 @@ const MovieDesc = () => {
                         <>
                             <div className="left-desc">
                                 <h2 className="text-2xl font-bold mb-4">{movie.title}</h2>
-                                <p className="text-lg mb-2"><strong>Duración:</strong> {movie.duration} min</p>
-                                <p className="text-lg mb-2"><strong>Precio:</strong> ${movie.price}</p>
+                                <p className="text-lg mb-2 text-white"><strong>Sinopsis:</strong> {movie.sinopsis}</p>
+                                <p className="text-lg mb-2 text-white"><strong>Duración:</strong> {movie.duration} min</p>
+                                <p className="text-lg mb-2 text-white"><strong>Precio:</strong> ${movie.price}</p>
                                 <div className="mb-4">
                                     <h3 className="text-xl font-semibold mb-2">Categorías:</h3>
                                     <ul className="list-disc list-inside">
@@ -265,16 +266,19 @@ const MovieDesc = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-center space-y-4">
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
                                 <Button>Agregar a Favoritos</Button>
+                                <Button>Agregar al carrito</Button>
+                                <Button>Agregar Review</Button>
                             </div>
                         </>
                     ) : (
                         <>
                             <div className="left-desc">
                                 <h2 className="text-2xl font-bold mb-4">{movie.name}</h2>
-                                <p className="text-lg mb-2"><strong>Precio:</strong> ${movie.price}</p>
+                                <p className="text-lg mb-2 text-white"><strong>Sinopsis:</strong> {movie.sinopsis}</p>
+                                <p className="text-lg mb-2 text-white"><strong>Precio:</strong> ${movie.price}</p>
                                 <div className="mb-4">
                                     <h3 className="text-xl font-semibold mb-2">Categorías:</h3>
                                     <ul className="list-disc list-inside">
@@ -336,9 +340,11 @@ const MovieDesc = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-center space-y-4">
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
                                 <Button>Agregar a Favoritos</Button>
+                                <Button>Agregar al carrito</Button>
+                                <Button>Agregar Review</Button>
                             </div>
                         </>
                     )}
