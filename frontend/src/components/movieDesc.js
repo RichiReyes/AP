@@ -287,7 +287,7 @@ const MovieDesc = () => {
     };
 
     const handleDirectorClick = (directorId) => {
-        navigate(`/director/${directorId}`);
+        navigate(`/actor/${directorId}`);
     };
 
     return (

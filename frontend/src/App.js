@@ -69,7 +69,7 @@ function App() {
           <Route exact path='/statsProductos' element={<StatisticsProducts/>}/>
           <Route exact path='/statsUsuarios' element={<StatsAges/>}/>
           <Route exact path='/historialPrecios' element={<PriceHistory/>}/>
-          <Route exact path="/director/:id" element={<ActorDirectorInfo />} />
+          <Route exact path="/actor/:id" element={<ActorDirectorInfo />} />
         </Routes>
       </BrowserRouter>
     </div>
