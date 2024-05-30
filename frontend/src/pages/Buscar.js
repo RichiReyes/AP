@@ -44,7 +44,7 @@ const Buscar = () => {
                         className="input-buscar"
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        placeholder="Search for movies or shows..."
+                        placeholder="Buscar series o peliculas"
                     />
                     <Button onClick={handleSearch}>Buscar</Button>
                 </div>
