@@ -80,7 +80,7 @@ const TopItems = () => {
         <div className="min-h-screen bg-gray-900 text-white">
             <Navbar />
             <div className="max-w-4xl mx-auto p-6">
-                <h2 className="text-3xl mt-8">Top {topN} Most Sold Items</h2>
+                <h2 className="text-3xl mt-8">Top {topN} Productos más vendidos</h2>
                 <div className="flex items-center space-x-4 mt-4">
                     <input
                         type="number"
