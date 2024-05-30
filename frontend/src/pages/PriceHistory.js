@@ -67,27 +67,27 @@ const PriceHistory = () => {
             <Navbar />
             <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h2 className="text-3xl mt-8">Movie Price History</h2>
+                    <h2 className="text-3xl mt-8">Historial de precios peliculas</h2>
                     <div className="mt-6">
                         {moviePriceHistory.map((item, index) => (
                             <div key={index} className="p-4 bg-gray-800 rounded-lg mb-4">
                                 <h3 className="text-lg">{item.title}</h3>
-                                <p>Old Price: ${item.oldprice.toFixed(2)}</p>
-                                <p>New Price: ${item.newprice.toFixed(2)}</p>
-                                <p>Date of Update: {new Date(item.dateOfUpdate).toLocaleDateString()}</p>
+                                <p>Precio viejo: ${item.oldprice.toFixed(2)}</p>
+                                <p>Precio nuevo: ${item.newprice.toFixed(2)}</p>
+                                <p>Fecha de cambio: {new Date(item.dateOfUpdate).toLocaleDateString()}</p>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div>
-                    <h2 className="text-3xl mt-8">Show Price History</h2>
+                    <h2 className="text-3xl mt-8">Historial de precios series</h2>
                     <div className="mt-6">
                         {showPriceHistory.map((item, index) => (
                             <div key={index} className="p-4 bg-gray-800 rounded-lg mb-4">
                                 <h3 className="text-lg">{item.name}</h3>
-                                <p>Old Price: ${item.oldprice.toFixed(2)}</p>
-                                <p>New Price: ${item.newprice.toFixed(2)}</p>
-                                <p>Date of Update: {new Date(item.dateOfUpdate).toLocaleDateString()}</p>
+                                <p>Precio viejo: ${item.oldprice.toFixed(2)}</p>
+                                <p>Precio nuevo: ${item.newprice.toFixed(2)}</p>
+                                <p>Fecha de cambio: {new Date(item.dateOfUpdate).toLocaleDateString()}</p>
                             </div>
                         ))}
                     </div>
