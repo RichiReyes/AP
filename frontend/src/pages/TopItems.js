@@ -90,14 +90,14 @@ const TopItems = () => {
                         min="1"
                         max="100"
                     />
-                    <Button onClick={fetchTopItems} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Fetch Top Items</Button>
+                    <Button onClick={fetchTopItems} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Buscar top</Button>
                 </div>
                 <div className="mt-6">
                     {topItems.map(item => (
                         <div key={item.id} className="p-4 bg-gray-800 rounded-lg mb-4 flex justify-between items-center">
                             <div>
                                 <h3 className="text-lg">{item.title || item.name} ({item.releasedate || item.releaseyear})</h3>
-                                <p>Purchase Quantity: {item.purchasequantity}</p>
+                                <p>Cantidad de ventas: {item.purchasequantity}</p>
                             </div>
                         </div>
                     ))}
