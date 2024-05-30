@@ -217,7 +217,7 @@ const Carrito = () => {
             await supabase.from('userxshoppingcartmovie').delete().eq('iduser', user.id);
             await supabase.from('userxshoppingcartshow').delete().eq('iduser', user.id);
     
-            
+            alert('Compra realizada con éxito');
             fetchShoppingCartItems();
         } catch (error) {
             console.log('Error processing payment:', error);

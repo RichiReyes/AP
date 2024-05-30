@@ -230,17 +230,14 @@ const MovieDesc = () => {
                     const {data: favData, error: favError} = await supabase
                     .from('userxfavoritemovie')
                     .insert({iduser: user.id, idmovie: movie.id});
-                    if(favData){
-                        alert('Agregado a favoritos');
-                    }
+                    if(favError) throw(favError);
+                    alert('Agregado a favoritos');
                 } else {
                     const {data: favData, error: favError} = await supabase
                     .from('userxfavoriteshows')
                     .insert({iduser: user.id, idshow: movie.id});
-
-                    if(favData){
-                        alert('Agregado a favoritos');
-                    } 
+                    if(favError)throw(favError);
+                    alert('Agregado a favoritos');
                 }
             } catch(error){
 
