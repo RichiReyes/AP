@@ -28,6 +28,7 @@ import AdmiActorDirector from './pages/AdmiActorDirector';
 import AddAdmin from './pages/AddAdmin';
 import AdmiAdmin from './pages/AdmiAdmin';
 import MovieDesc from './components/movieDesc';
+import Favoritos from './pages/Favoritos';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route exact path='/addAdmin' element={<AddAdmin/>}/>
           <Route exact path='/admiAdmin' element={<AdmiAdmin/>}/>
           <Route exact path='/movieDesc' element={<MovieDesc/>}/>
+          <Route exact path='/favoritos' element={<Favoritos/>}/>
         </Routes>
       </BrowserRouter>
     </div>

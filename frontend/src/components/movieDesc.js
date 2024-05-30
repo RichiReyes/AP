@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import Navbar from './Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 const MovieDesc = () => {
@@ -9,6 +9,7 @@ const MovieDesc = () => {
     const { movie, tipo } = location.state || {};
     const user = useUser();
     const supabase = useSupabaseClient();
+    const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
     const [actorIds, setActorIds] = useState([]);
@@ -211,6 +212,67 @@ const MovieDesc = () => {
         addRecentWatch();
     }, [movie, tipo, user, supabase]);
 
+    async function addFav(){
+        if(user){
+            try{
+                if (tipo === 'movie'){
+                    const {data: favData, error: favError} = await supabase
+                    .from('userxfavoritemovie')
+                    .insert({iduser: user.id, idmovie: movie.id});
+                    if(favData){
+                        alert('Agregado a favoritos');
+                    }
+                } else {
+                    const {data: favData, error: favError} = await supabase
+                    .from('userxfavoriteshows')
+                    .insert({iduser: user.id, idshow: movie.id});
+
+                    if(favData){
+                        alert('Agregado a favoritos');
+                    } 
+                }
+            } catch(error){
+
+            }
+        } else{
+            navigate('/login');
+        }
+    }
+    async function addCarrito(){
+        if(user){
+
+            try{
+
+                if(tipo ==='movie'){
+                    const {data: carritoData, error: carritoError} = await supabase
+                    .from('userxshoppingcartmovie')
+                    .insert({iduser: user.id, idmovie: movie.id})
+                    if(carritoError) throw(carritoError);
+                    alert('Agregado al carrito')
+                } else{
+                    const {data: carritoData, error: carritoError} = await supabase
+                    .from('userxshoppingcartshow')
+                    .insert({iduser: user.id, idshow: movie.id})
+                    if(carritoError) throw(carritoError);
+                    alert('Agregado al carrito')
+                }
+
+            } catch(error){
+                console.log(error);
+            }
+
+        } else{
+            navigate('/login');
+        }
+    }
+    function addReview(){
+        if(user){
+
+        } else{
+            navigate('/login');
+        }
+    }
+
     return (
         <div>
             <Navbar />
@@ -227,7 +289,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Categorías:</h3>
                                     <ul className="list-disc list-inside">
                                         {categories.map((category) => (
-                                            <li key={category.id}>{category.nombre}</li>
+                                            <li className='text-white' key={category.id}>{category.nombre}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -235,7 +297,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Plataformas:</h3>
                                     <ul className="list-disc list-inside">
                                         {platforms.map((platform) => (
-                                            <li key={platform.id}>{platform.name}</li>
+                                            <li className='text-white' key={platform.id}>{platform.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -268,9 +330,9 @@ const MovieDesc = () => {
                             </div>
                             <div className="flex flex-col items-center space-y-4">
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
-                                <Button>Agregar a Favoritos</Button>
-                                <Button>Agregar al carrito</Button>
-                                <Button>Agregar Review</Button>
+                                <Button onClick={addFav}>Agregar a Favoritos</Button>
+                                <Button onClick={addCarrito}>Agregar al carrito</Button>
+                                <Button onClick={addReview}>Agregar Review</Button>
                             </div>
                         </>
                     ) : (
@@ -283,7 +345,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Categorías:</h3>
                                     <ul className="list-disc list-inside">
                                         {categories.map((category) => (
-                                            <li key={category.id}>{category.nombre}</li>
+                                            <li className='text-white' key={category.id}>{category.nombre}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -291,7 +353,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Plataformas:</h3>
                                     <ul className="list-disc list-inside">
                                         {platforms.map((platform) => (
-                                            <li key={platform.id}>{platform.name}</li>
+                                            <li className='text-white' key={platform.id}>{platform.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -342,9 +404,9 @@ const MovieDesc = () => {
                             </div>
                             <div className="flex flex-col items-center space-y-4">
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
-                                <Button>Agregar a Favoritos</Button>
-                                <Button>Agregar al carrito</Button>
-                                <Button>Agregar Review</Button>
+                                <Button onClick={addFav}>Agregar a Favoritos</Button>
+                                <Button onClick={addCarrito}>Agregar al carrito</Button>
+                                <Button onClick={addReview}>Agregar Review</Button>
                             </div>
                         </>
                     )}

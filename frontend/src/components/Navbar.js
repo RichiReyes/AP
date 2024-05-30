@@ -53,6 +53,9 @@ const Navbar = () => {
             navigate('/perfil');
         }
     }
+    function handleFavoritos(){
+        navigate("/favoritos");
+    };
 
     return (
         <header className='headerNav'>
@@ -60,7 +63,7 @@ const Navbar = () => {
                 <h2>IMDb</h2>
             </div>
             <div className="botonesNav">
-            <button onClick={handleHome} className='left-buttons'>Home</button> <button onClick={handleBuscar}className='left-buttons'>Buscar</button> <button onClick={handleRecientes} className='left-buttons'>Vistos Recientemente</button>
+            <button onClick={handleHome} className='left-buttons'>Home</button> <button onClick={handleBuscar}className='left-buttons'>Buscar</button> <button onClick={handleRecientes} className='left-buttons'>Vistos Recientemente</button> <button onClick={handleFavoritos} className='left-buttons'>Favoritos</button>
             <div className='flex ml-auto space-x-4'>
                 <button onClick={handleCarrito}className='right-buttons'>Carrito</button>
                 <Avatar onClick={handlePerfil} className='hover:cursor-pointer'>
