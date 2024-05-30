@@ -10,17 +10,17 @@ const StatisticsProducts = () => {
 
     const fetchCategoryStats = async () => {
         try {
-            // Fetch movie category counts
+           
             const { data: movieCategoryCounts, error: movieCategoryError } = await supabase
                 .rpc('get_category_counts', { table_name: 'moviexcategory' });
             if (movieCategoryError) throw movieCategoryError;
 
-            // Fetch show category counts
+            
             const { data: showCategoryCounts, error: showCategoryError } = await supabase
                 .rpc('get_category_counts', { table_name: 'showxcategory' });
             if (showCategoryError) throw showCategoryError;
 
-            // Combine counts and group by category
+            
             const combinedCounts = {};
 
             movieCategoryCounts.forEach(item => {
@@ -31,13 +31,13 @@ const StatisticsProducts = () => {
                 combinedCounts[item.idcategory] = (combinedCounts[item.idcategory] || 0) + item.count;
             });
 
-            // Fetch category names
+           
             const { data: categories, error: categoryError } = await supabase
                 .from('category')
                 .select('id, nombre');
             if (categoryError) throw categoryError;
 
-            // Map category IDs to names and prepare final data
+            
             const categoryStatsData = Object.entries(combinedCounts).map(([id, count]) => {
                 const category = categories.find(cat => cat.id === id);
                 return { nombre: category?.nombre || 'Unknown', count };

@@ -32,6 +32,8 @@ import Favoritos from './pages/Favoritos';
 import TopItems from './pages/TopItems';
 import StatisticsProducts from './pages/StatisticsProducts';
 import StatsAges from './pages/StatsAges';
+import PriceHistory from './pages/PriceHistory';
+import ActorDirectorInfo from './pages/ActorDirectorInfo';
 
 function App() {
   return (
@@ -66,6 +68,8 @@ function App() {
           <Route exact path='/topVentas' element={<TopItems/>}/>
           <Route exact path='/statsProductos' element={<StatisticsProducts/>}/>
           <Route exact path='/statsUsuarios' element={<StatsAges/>}/>
+          <Route exact path='/historialPrecios' element={<PriceHistory/>}/>
+          <Route exact path="/director/:id" element={<ActorDirectorInfo />} />
         </Routes>
       </BrowserRouter>
     </div>

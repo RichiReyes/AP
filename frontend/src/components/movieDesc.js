@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import Navbar from './Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import AddReview from '../components/AddReview'; // Ensure this import is correct
 
 const MovieDesc = () => {
     const location = useLocation();
@@ -20,8 +21,10 @@ const MovieDesc = () => {
     const [reviews, setReviews] = useState([]);
     const [seasons, setSeasons] = useState([]);
     const [episodes, setEpisodes] = useState([]);
+    const [showAddReview, setShowAddReview] = useState(false);
 
     const CDNURL = "https://jheqfwbznxusdwclwccv.supabase.co/storage/v1/object/public/imgs/";
+    
     const imageUrl = (tipo === 'movie' ? `${CDNURL}movies/${movie.id}` : `${CDNURL}shows/${movie.id}`) + `?timestamp=${new Date().getTime()}`;
 
     useEffect(() => {
@@ -72,19 +75,7 @@ const MovieDesc = () => {
                     setPlatforms(platformsData);
 
                     // Fetch reviews
-                    const { data: reviewData, error: reviewError } = await supabase
-                        .from(tipo === 'movie' ? 'moviexreview' : 'showxreview')
-                        .select('idreview')
-                        .eq(tipo === 'movie' ? 'idmovie' : 'idshow', movie.id);
-                    if (reviewError) throw reviewError;
-
-                    const reviewIds = reviewData.map(item => item.idreview);
-                    const { data: reviewsData, error: reviewsError } = await supabase
-                        .from('review')
-                        .select('id, stars, description')
-                        .in('id', reviewIds);
-                    if (reviewsError) throw reviewsError;
-                    setReviews(reviewsData);
+                    await fetchReviews();
 
                     if (tipo === 'show') {
                         // Fetch seasons
@@ -146,6 +137,26 @@ const MovieDesc = () => {
 
         fetchDirectorNames();
     }, [directorIds, supabase]);
+
+    const fetchReviews = async () => {
+        try {
+            const { data: reviewData, error: reviewError } = await supabase
+                .from(tipo === 'movie' ? 'moviexreview' : 'showxreview')
+                .select('idreview')
+                .eq(tipo === 'movie' ? 'idmovie' : 'idshow', movie.id);
+            if (reviewError) throw reviewError;
+
+            const reviewIds = reviewData.map(item => item.idreview);
+            const { data: reviewsData, error: reviewsError } = await supabase
+                .from('review')
+                .select('id, stars, description')
+                .in('id', reviewIds);
+            if (reviewsError) throw reviewsError;
+            setReviews(reviewsData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         const addRecentWatch = async () => {
@@ -238,11 +249,10 @@ const MovieDesc = () => {
             navigate('/login');
         }
     }
+
     async function addCarrito(){
         if(user){
-
             try{
-
                 if(tipo ==='movie'){
                     const {data: carritoData, error: carritoError} = await supabase
                     .from('userxshoppingcartmovie')
@@ -265,13 +275,23 @@ const MovieDesc = () => {
             navigate('/login');
         }
     }
-    function addReview(){
-        if(user){
 
-        } else{
-            navigate('/login');
-        }
+    function handleAddReview(){
+        setShowAddReview(true);
     }
+
+    function handleCloseReview(){
+        setShowAddReview(false);
+        fetchReviews();
+    }
+
+    const handleActorClick = (actorId) => {
+        navigate(`/actor/${actorId}`);
+    };
+
+    const handleDirectorClick = (directorId) => {
+        navigate(`/director/${directorId}`);
+    };
 
     return (
         <div>
@@ -305,7 +325,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Actores:</h3>
                                     <ul className="list-disc list-inside">
                                         {actors.map((actor) => (
-                                            <li key={actor.id} className='text-lime-400 hover:cursor-pointer'>{actor.name}</li>
+                                            <li key={actor.id} className='text-lime-400 hover:cursor-pointer' onClick={() => handleActorClick(actor.id)}>{actor.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -313,7 +333,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Directores:</h3>
                                     <ul className="list-disc list-inside">
                                         {directors.map((director) => (
-                                            <li key={director.id}>{director.name}</li>
+                                            <li key={director.id} className='text-lime-400 hover:cursor-pointer' onClick={() => handleDirectorClick(director.id)}>{director.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -321,8 +341,8 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Reseñas:</h3>
                                     <ul className="list-disc list-inside">
                                         {reviews.map((review) => (
-                                            <li key={review.id}>
-                                                <p><strong>{review.stars} stars:</strong> {review.description}</p>
+                                            <li className='text-white' key={review.id}>
+                                                <p className='text-white'><strong>{review.stars} stars:</strong> {review.description}</p>
                                             </li>
                                         ))}
                                     </ul>
@@ -332,7 +352,7 @@ const MovieDesc = () => {
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
                                 <Button onClick={addFav}>Agregar a Favoritos</Button>
                                 <Button onClick={addCarrito}>Agregar al carrito</Button>
-                                <Button onClick={addReview}>Agregar Review</Button>
+                                <Button onClick={handleAddReview}>Agregar Review</Button>
                             </div>
                         </>
                     ) : (
@@ -361,7 +381,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Actores:</h3>
                                     <ul className="list-disc list-inside">
                                         {actors.map((actor) => (
-                                            <li key={actor.id} className='text-lime-400 hover:cursor-pointer'>{actor.name}</li>
+                                            <li key={actor.id} className='text-lime-400 hover:cursor-pointer' onClick={() => handleActorClick(actor.id)}>{actor.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -369,7 +389,7 @@ const MovieDesc = () => {
                                     <h3 className="text-xl font-semibold mb-2">Directores:</h3>
                                     <ul className="list-disc list-inside">
                                         {directors.map((director) => (
-                                            <li key={director.id}>{director.name}</li>
+                                            <li key={director.id} className='text-lime-400 hover:cursor-pointer' onClick={() => handleDirectorClick(director.id)}>{director.name}</li>
                                         ))}
                                     </ul>
                                 </div>
@@ -396,7 +416,7 @@ const MovieDesc = () => {
                                     <ul className="list-disc list-inside">
                                         {reviews.map((review) => (
                                             <li key={review.id}>
-                                                <p><strong>{review.stars} stars:</strong> {review.description}</p>
+                                                <p className='text-white'><strong>{review.stars} stars:</strong> {review.description}</p>
                                             </li>
                                         ))}
                                     </ul>
@@ -406,9 +426,17 @@ const MovieDesc = () => {
                                 <img src={imageUrl} alt="No se encontró esta imagen" className='image-desc max-w-full max-h-[48rem] w-auto h-auto object-cover rounded-lg shadow-lg mb-4' />
                                 <Button onClick={addFav}>Agregar a Favoritos</Button>
                                 <Button onClick={addCarrito}>Agregar al carrito</Button>
-                                <Button onClick={addReview}>Agregar Review</Button>
+                                <Button onClick={handleAddReview}>Agregar Review</Button>
                             </div>
                         </>
+                    )}
+                    {showAddReview && (
+                        <AddReview 
+                            tipo={tipo} 
+                            movie={movie} 
+                            onClose={handleCloseReview} 
+                            fetchReviews={fetchReviews} 
+                        />
                     )}
                 </div>
             </div>

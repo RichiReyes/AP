@@ -92,6 +92,9 @@ const AdminMenu = () => {
     function goStatsUsuarios(){
         navigate('/statsUsuarios');
     }
+    function goStatsPrecios(){
+        navigate('/historialPrecios');
+    }
 
     return (
         <div>
@@ -148,7 +151,7 @@ const AdminMenu = () => {
                 <div onClick={goStatsUsuarios} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Estadísticas de usuarios
                 </div>
-                <div className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
+                <div onClick={goStatsPrecios} className='place-self-center bg-neutral-700 w-4/6 rounded-md p-8 h-4/6 flex items-center justify-center hover:shadow-[0_0_10px] hover:shadow-white cursor-pointer text-white text-xl'>
                     Bitácora de precios
                 </div>
             </div>
